@@ -98,8 +98,8 @@ k8s-executor-build-push:
 
 .PHONY: k8s-executor-build-push
 k8s-executor-build-push-debug:
-	DOCKER_BUILDKIT=1 docker build ${BUILD_ARG} --build-arg=GOARCH=$(GOARCH) -t $(REGISTRY)/kaniko-executor:latest -f deploy/Dockerfile_debug .
-	docker push $(REGISTRY)/kaniko-executor:latest
+	DOCKER_BUILDKIT=1 docker build ${BUILD_ARG} --build-arg=GOARCH=$(GOARCH) -t $(REGISTRY)/kaniko-executor:dev -f deploy/Dockerfile_debug .
+	docker push $(REGISTRY)/kaniko-executor:dev
 
 
 .PHONY: images
