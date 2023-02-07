@@ -22,8 +22,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
-	"github.com/google/go-containerregistry/pkg/compression"
 )
 
 // CacheOptions are base image cache options that are set by command line arguments
@@ -70,7 +68,7 @@ type KanikoOptions struct {
 	ImageNameDigestFile      string
 	ImageNameTagDigestFile   string
 	OCILayoutPath            string
-	Compression              compression.Compression
+	Compression              string
 	CompressionLevel         int
 	ImageFSExtractRetry      int
 	SingleSnapshot           bool
