@@ -93,26 +93,10 @@ integration-test-misc:
 
 .PHONY: k8s-executor-build-push
 k8s-executor-build-push:
-	DOCKER_BUILDKIT=1 docker build ${BUILD_ARG} --build-arg=GOARCH=$(GOARCH) -t $(REGISTRY)/kaniko-executor:latest -f deploy/Dockerfile .
-	docker push $(REGISTRY)/kaniko-executor:latest
+	DOCKER_BUILDKIT=1 docker build ${BUILD_ARG} --build-arg=GOARCH=$(GOARCH) -t $(REGISTRY)/kaniko-executor:${VERSION}-zstd -f deploy/Dockerfile .
+	docker push $(REGISTRY)/kaniko-executor:${VERSION}-zstd
 
-.PHONY: k8s-executor-build-push
+.PHONY: k8s-executor-build-push-debug
 k8s-executor-build-push-debug:
-	DOCKER_BUILDKIT=1 docker build ${BUILD_ARG} --build-arg=GOARCH=$(GOARCH) -t $(REGISTRY)/kaniko-executor:dev -f deploy/Dockerfile_debug .
-	docker push $(REGISTRY)/kaniko-executor:dev
-
-
-.PHONY: images
-images: DOCKER_BUILDKIT=1
-images:
-	docker build ${BUILD_ARG} --build-arg=GOARCH=$(GOARCH) -t $(REGISTRY)/executor:latest -f deploy/Dockerfile .
-	docker build ${BUILD_ARG} --build-arg=GOARCH=$(GOARCH) -t $(REGISTRY)/executor:debug -f deploy/Dockerfile_debug .
-	docker build ${BUILD_ARG} --build-arg=GOARCH=$(GOARCH) -t $(REGISTRY)/executor:slim -f deploy/Dockerfile_slim .
-	docker build ${BUILD_ARG} --build-arg=GOARCH=$(GOARCH) -t $(REGISTRY)/warmer:latest -f deploy/Dockerfile_warmer .
-
-.PHONY: push
-push:
-	docker push $(REGISTRY)/executor:latest
-	docker push $(REGISTRY)/executor:debug
-	docker push $(REGISTRY)/executor:slim
-	docker push $(REGISTRY)/warmer:latest
+	DOCKER_BUILDKIT=1 docker build ${BUILD_ARG} --build-arg=GOARCH=$(GOARCH) -t $(REGISTRY)/kaniko-executor:${VERSION}-debug-zstd -f deploy/Dockerfile_debug .
+	docker push $(REGISTRY)/kaniko-executor:${VERSION}-debug-zstd
