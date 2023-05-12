@@ -100,3 +100,9 @@ k8s-executor-build-push:
 k8s-executor-build-push-debug:
 	DOCKER_BUILDKIT=1 docker build ${BUILD_ARG} --build-arg=GOARCH=$(GOARCH) -t $(REGISTRY)/kaniko-executor:${VERSION}-debug-zstd -f deploy/Dockerfile_debug .
 	docker push $(REGISTRY)/kaniko-executor:${VERSION}-debug-zstd
+
+.PHONY: k8s-executor-build-push-debug
+k8s-executor-build-push-debug-certs:
+	DOCKER_BUILDKIT=1 docker build ${BUILD_ARG} --build-arg=GOARCH=$(GOARCH) -t $(REGISTRY)/kaniko-executor:${VERSION}-debug-zstd -f deploy/Dockerfile_debug .
+	DOCKER_BUILDKIT=1 docker build ${BUILD_ARG} --build-arg=GOARCH=$(GOARCH) -t $(REGISTRY)/kaniko-executor:${VERSION}-debug-zstd-certs -f deploy/Dockerfile_certs .
+	docker push $(REGISTRY)/kaniko-executor:${VERSION}-debug-zstd-certs
